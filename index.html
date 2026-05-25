@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hamza Sami — Cybersecurity & Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0a0c0f;
+  --bg2: #0f1318;
+  --bg3: #141920;
+  --surface: #1a2130;
+  --surface2: #1e2840;
+  --border: #1e3a5f;
+  --border2: #2a4a7a;
+  --neon: #00f5c4;
+  --neon2: #00bfff;
+  --neon3: #7c3aed;
+  --neon-dim: rgba(0,245,196,0.08);
+  --neon-dim2: rgba(0,191,255,0.08);
+  --text: #e2eaf4;
+  --text2: #8baabf;
+  --text3: #4a6a85;
+  --accent: #ff6b35;
+  --font-main: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-ar: 'Cairo', sans-serif;
+}
+[data-theme="light"] {
+  --bg: #f0f4f8;
+  --bg2: #e8edf5;
+  --bg3: #dde4ef;
+  --surface: #ffffff;
+  --surface2: #f5f8ff;
+  --border: #c5d5e8;
+  --border2: #9ab5d5;
+  --neon: #008f72;
+  --neon2: #0077b6;
+  --neon3: #6d28d9;
+  --neon-dim: rgba(0,143,114,0.08);
+  --neon-dim2: rgba(0,119,182,0.08);
+  --text: #0d1b2a;
+  --text2: #3a5a78;
+  --text3: #7a9ab5;
+  --accent: #e85d20;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-main);
+  font-size:16px;
+  line-height:1.7;
+  transition:background 0.4s,color 0.4s;
+  overflow-x:hidden;
+}
+body[lang="ar"]{font-family:var(--font-ar);}
+
+/* Scanline effect */
+body::before{
+  content:'';
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+  pointer-events:none;
+  z-index:9999;
+}
+
+/* Grid background */
+body::after{
+  content:'';
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:50px 50px;
+  opacity:0.15;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+  height:60px;
+  background:rgba(10,12,15,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+[data-theme="light"] nav{background:rgba(240,244,248,0.88);}
+.nav-logo{
+  font-family:var(--font-mono);
+  font-size:1.1rem;
+  color:var(--neon);
+  letter-spacing:2px;
+}
+.nav-logo span{color:var(--neon2);}
+.nav-links{display:flex;gap:0.2rem;align-items:center;}
+.nav-links a{
+  color:var(--text2);
+  text-decoration:none;
+  font-size:0.85rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  padding:0.4rem 0.8rem;
+  border-radius:4px;
+  transition:all 0.2s;
+  font-weight:600;
+}
+.nav-links a:hover{color:var(--neon);background:var(--neon-dim);}
+.nav-controls{display:flex;gap:0.5rem;align-items:center;}
+.ctrl-btn{
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:var(--text2);
+  padding:0.35rem 0.75rem;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:0.78rem;
+  font-family:var(--font-mono);
+  letter-spacing:1px;
+  transition:all 0.2s;
+}
+.ctrl-btn:hover{border-color:var(--neon);color:var(--neon);}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  z-index:1;
+  padding:6rem 2rem 4rem;
+  text-align:center;
+}
+.hero-inner{max-width:800px;}
+.hero-tag{
+  font-family:var(--font-mono);
+  font-size:0.8rem;
+  color:var(--neon);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+  opacity:0;
+  animation:fadeUp 0.6s 0.2s forwards;
+}
+.hero h1{
+  font-size:clamp(2.8rem,7vw,5.5rem);
+  font-weight:700;
+  line-height:1.05;
+  margin-bottom:1rem;
+  opacity:0;
+  animation:fadeUp 0.6s 0.4s forwards;
+}
+.hero h1 .name-hl{
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:1.15rem;
+  color:var(--text2);
+  margin-bottom:2rem;
+  opacity:0;
+  animation:fadeUp 0.6s 0.6s forwards;
+  max-width:600px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.hero-badges{
+  display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;
+  margin-bottom:2.5rem;
+  opacity:0;
+  animation:fadeUp 0.6s 0.8s forwards;
+}
+.badge{
+  font-family:var(--font-mono);
+  font-size:0.72rem;
+  padding:0.35rem 0.85rem;
+  border:1px solid var(--border2);
+  border-radius:2px;
+  color:var(--neon2);
+  background:var(--neon-dim2);
+  letter-spacing:1px;
+}
+.hero-cta{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  opacity:0;
+  animation:fadeUp 0.6s 1s forwards;
+}
+.btn-primary{
+  background:var(--neon);
+  color:#0a0c0f;
+  border:none;
+  padding:0.75rem 1.8rem;
+  font-family:var(--font-main);
+  font-weight:700;
+  font-size:0.9rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:3px;
+  text-decoration:none;
+  transition:all 0.2s;
+  display:inline-block;
+}
+.btn-primary:hover{opacity:0.85;transform:translateY(-2px);}
+.btn-outline{
+  background:transparent;
+  color:var(--neon);
+  border:1px solid var(--neon);
+  padding:0.75rem 1.8rem;
+  font-family:var(--font-main);
+  font-weight:700;
+  font-size:0.9rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:3px;
+  text-decoration:none;
+  transition:all 0.2s;
+  display:inline-block;
+}
+.btn-outline:hover{background:var(--neon-dim);transform:translateY(-2px);}
+
+/* PHOTO */
+.hero-photo{
+  width:130px;height:130px;
+  border-radius:50%;
+  border:2px solid var(--neon);
+  object-fit:cover;
+  margin:0 auto 1.5rem;
+  display:block;
+  box-shadow:0 0 30px rgba(0,245,196,0.2);
+  opacity:0;
+  animation:fadeUp 0.6s 0s forwards;
+}
+.photo-placeholder{
+  width:130px;height:130px;
+  border-radius:50%;
+  border:2px solid var(--neon);
+  background:var(--surface);
+  margin:0 auto 1.5rem;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;
+  color:var(--neon);
+  opacity:0;
+  animation:fadeUp 0.6s 0s forwards;
+  box-shadow:0 0 30px rgba(0,245,196,0.15);
+}
+
+/* SECTIONS */
+section{
+  position:relative;z-index:1;
+  padding:5rem 2rem;
+  max-width:1100px;
+  margin:0 auto;
+}
+.sec-label{
+  font-family:var(--font-mono);
+  font-size:0.72rem;
+  color:var(--neon);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:0.5rem;
+}
+.sec-title{
+  font-size:2rem;
+  font-weight:700;
+  margin-bottom:3rem;
+  position:relative;
+  display:inline-block;
+}
+.sec-title::after{
+  content:'';
+  position:absolute;
+  bottom:-8px;left:0;
+  width:40px;height:2px;
+  background:var(--neon);
+}
+
+/* ABOUT */
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3rem;
+  align-items:start;
+}
+@media(max-width:700px){.about-grid{grid-template-columns:1fr;}}
+.about-text{color:var(--text2);font-size:1.05rem;line-height:1.9;}
+.about-text p{margin-bottom:1rem;}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.stat-box{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:1.2rem;
+  text-align:center;
+  transition:border-color 0.2s;
+}
+.stat-box:hover{border-color:var(--neon);}
+.stat-num{
+  font-family:var(--font-mono);
+  font-size:1.8rem;
+  color:var(--neon);
+  display:block;
+  margin-bottom:0.2rem;
+}
+.stat-label{font-size:0.78rem;color:var(--text3);letter-spacing:1px;text-transform:uppercase;}
+
+/* SKILLS */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.2rem;
+}
+.skill-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:1.4rem;
+  transition:all 0.25s;
+  position:relative;
+  overflow:hidden;
+}
+.skill-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--neon),var(--neon2));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 0.3s;
+}
+.skill-card:hover::before{transform:scaleX(1);}
+.skill-card:hover{border-color:var(--border2);transform:translateY(-3px);}
+.skill-icon{font-size:1.6rem;margin-bottom:0.8rem;}
+.skill-name{font-size:1rem;font-weight:700;margin-bottom:0.5rem;color:var(--text);}
+.skill-bar{height:3px;background:var(--bg3);border-radius:2px;margin-top:0.7rem;}
+.skill-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));transition:width 1s ease;}
+
+/* PROJECTS */
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;
+}
+.project-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:1.5rem;
+  transition:all 0.25s;
+  display:flex;flex-direction:column;
+}
+.project-card:hover{border-color:var(--neon2);transform:translateY(-4px);}
+.project-header{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;}
+.project-icon{
+  width:40px;height:40px;
+  background:var(--neon-dim2);
+  border:1px solid var(--border2);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;
+  flex-shrink:0;
+}
+.project-title{font-size:1.05rem;font-weight:700;}
+.project-desc{color:var(--text2);font-size:0.9rem;line-height:1.7;flex:1;margin-bottom:1.2rem;}
+.project-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.tag{
+  font-family:var(--font-mono);
+  font-size:0.68rem;
+  padding:0.2rem 0.6rem;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:2px;
+  color:var(--text3);
+}
+.project-link{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-family:var(--font-mono);
+  font-size:0.78rem;
+  color:var(--neon2);
+  text-decoration:none;
+  letter-spacing:1px;
+  transition:color 0.2s;
+}
+.project-link:hover{color:var(--neon);}
+
+/* EDUCATION */
+.edu-block{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--neon);
+  border-radius:4px;
+  padding:1.5rem 2rem;
+  max-width:600px;
+}
+.edu-degree{font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;}
+.edu-school{color:var(--neon2);font-family:var(--font-mono);font-size:0.85rem;margin-bottom:0.3rem;}
+.edu-date{font-size:0.8rem;color:var(--text3);font-family:var(--font-mono);}
+
+/* CONTACT */
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+  align-items:start;
+}
+@media(max-width:700px){.contact-grid{grid-template-columns:1fr;}}
+.contact-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:4px;
+  transition:border-color 0.2s;
+  text-decoration:none;
+  color:inherit;
+}
+.contact-item:hover{border-color:var(--neon);}
+.contact-ic{
+  font-size:1.3rem;
+  width:40px;height:40px;
+  background:var(--neon-dim);
+  border:1px solid var(--border);
+  border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  color:var(--neon);
+}
+.contact-label{font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);}
+.contact-val{font-size:0.95rem;color:var(--text);margin-top:0.1rem;}
+
+/* FOOTER */
+footer{
+  position:relative;z-index:1;
+  text-align:center;
+  padding:2rem;
+  border-top:1px solid var(--border);
+  font-family:var(--font-mono);
+  font-size:0.75rem;
+  color:var(--text3);
+}
+
+/* DIVIDER */
+.divider{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:0 auto;
+  max-width:1100px;
+  position:relative;z-index:1;
+}
+
+/* CURSOR blink */
+.blink{animation:blink 1s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* Terminal prompt */
+.terminal-line{
+  font-family:var(--font-mono);
+  font-size:0.8rem;
+  color:var(--text3);
+  margin-bottom:2rem;
+}
+.terminal-line .prompt{color:var(--neon);}
+
+/* MOBILE NAV */
+.hamburger{display:none;background:none;border:1px solid var(--border);color:var(--text2);padding:0.35rem 0.6rem;cursor:pointer;border-radius:3px;font-size:1.2rem;}
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:block;}
+  .nav-links.open{
+    display:flex;flex-direction:column;
+    position:fixed;top:60px;left:0;right:0;
+    background:var(--bg2);
+    border-bottom:1px solid var(--border);
+    padding:1rem;gap:0.2rem;
+    z-index:999;
+  }
+}
+
+/* RTL overrides */
+[dir="rtl"] .sec-title::after{left:auto;right:0;}
+[dir="rtl"] .edu-block{border-left:none;border-right:3px solid var(--neon);}
+[dir="rtl"] .skill-card::before{transform-origin:right;}
+</style>
+</head>
+<body lang="en">
+
+<nav>
+  <div class="nav-logo"><span>&lt;</span>HS<span>/&gt;</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="#about" data-en="About" data-ar="عني">About</a>
+    <a href="#skills" data-en="Skills" data-ar="المهارات">Skills</a>
+    <a href="#projects" data-en="Projects" data-ar="المشاريع">Projects</a>
+    <a href="#education" data-en="Education" data-ar="التعليم">Education</a>
+    <a href="#contact" data-en="Contact" data-ar="التواصل">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="ctrl-btn" id="langBtn" onclick="toggleLang()">AR</button>
+    <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">☀</button>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <!-- Replace the src below with your actual photo URL -->
+    <div class="photo-placeholder" id="heroPhoto">👤</div>
+    <!-- Uncomment below and add your photo URL:
+    <img class="hero-photo" src="YOUR_PHOTO_URL_HERE" alt="Hamza Sami" id="heroPhoto"/>
+    -->
+    <div class="hero-tag">
+      <span class="prompt" id="heroTag">$ initializing_portfolio.exe</span><span class="blink">_</span>
+    </div>
+    <h1><span class="name-hl" id="heroName">Hamza Sami</span></h1>
+    <p class="hero-sub" id="heroSub">Cybersecurity Specialist &amp; Software Developer — building secure, scalable applications and defending against evolving cyber threats.</p>
+    <div class="hero-badges">
+      <span class="badge">Python</span>
+      <span class="badge">C#</span>
+      <span class="badge">Cybersecurity</span>
+      <span class="badge">Pen Testing</span>
+      <span class="badge">Threat Detection</span>
+      <span class="badge">Windows &amp; Web</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary" id="ctaProjects">View Projects</a>
+      <a href="#contact" class="btn-outline" id="ctaContact">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label" id="lblAbout">// about_me</div>
+  <div class="sec-title" id="titleAbout">About Me</div>
+  <div class="about-grid">
+    <div>
+      <div class="terminal-line"><span class="prompt">~/hamza $</span> cat bio.txt</div>
+      <div class="about-text">
+        <p id="aboutP1">Proficient in Python and C#, I build secure, scalable applications for Windows and web platforms. My expertise spans threat detection, vulnerability assessment, and implementing robust security protocols.</p>
+        <p id="aboutP2">I deliver practical defenses against evolving cyber threats while ensuring system efficiency and resilience — combining the mindset of a developer with the vigilance of a security specialist.</p>
+        <p id="aboutP3">Currently based in Wasit, Iraq. Open to remote opportunities and collaborations worldwide.</p>
+      </div>
+    </div>
+    <div class="about-stats">
+      <div class="stat-box">
+        <span class="stat-num">3+</span>
+        <span class="stat-label" id="stat1">Years Coding</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">CS</span>
+        <span class="stat-label" id="stat2">Degree</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">2</span>
+        <span class="stat-label" id="stat3">Languages</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">∞</span>
+        <span class="stat-label" id="stat4">Curiosity</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-label" id="lblSkills">// skill_set</div>
+  <div class="sec-title" id="titleSkills">Skills</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name" id="sk1">Python Development</div>
+      <div style="color:var(--text2);font-size:0.88rem;" id="sk1d">Scripting, automation, security tools &amp; backend development</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name" id="sk2">C# / .NET</div>
+      <div style="color:var(--text2);font-size:0.88rem;" id="sk2d">Windows application development &amp; secure software engineering</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔐</div>
+      <div class="skill-name" id="sk3">Cybersecurity</div>
+      <div style="color:var(--text2);font-size:0.88rem;" id="sk3d">Threat detection, vulnerability assessment &amp; security protocols</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name" id="sk4">Penetration Testing</div>
+      <div style="color:var(--text2);font-size:0.88rem;" id="sk4d">Ethical hacking, vulnerability scanning &amp; security auditing</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🖥️</div>
+      <div class="skill-name" id="sk5">Computer Literacy</div>
+      <div style="color:var(--text2);font-size:0.88rem;" id="sk5d">System administration, firewalls &amp; antivirus solutions</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎮</div>
+      <div class="skill-name" id="sk6">Interactive Media</div>
+      <div style="color:var(--text2);font-size:0.88rem;" id="sk6d">Web &amp; application UI/UX development</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label" id="lblProjects">// projects</div>
+  <div class="sec-title" id="titleProjects">Projects</div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">🛡️</div>
+        <div class="project-title" id="proj1t">Security Monitoring Tool</div>
+      </div>
+      <p class="project-desc" id="proj1d">A real-time threat detection system that monitors network traffic and flags suspicious activity using rule-based heuristics.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Network Security</span><span class="tag">Sockets</span>
+      </div>
+      <!-- Replace # with your actual Google Drive link -->
+      <a class="project-link" href="#" target="_blank" id="proj1l">↗ VIEW ON DRIVE</a>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">🔒</div>
+        <div class="project-title" id="proj2t">Password Manager App</div>
+      </div>
+      <p class="project-desc" id="proj2d">A secure desktop application built with C# that encrypts and stores credentials locally using AES encryption.</p>
+      <div class="project-tags">
+        <span class="tag">C#</span><span class="tag">AES Encryption</span><span class="tag">.NET</span>
+      </div>
+      <a class="project-link" href="#" target="_blank" id="proj2l">↗ VIEW ON DRIVE</a>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">🕵️</div>
+        <div class="project-title" id="proj3t">Vulnerability Scanner</div>
+      </div>
+      <p class="project-desc" id="proj3d">An automated pen-testing utility that scans target systems for known CVEs and generates detailed security reports.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Pen Testing</span><span class="tag">CVE</span>
+      </div>
+      <a class="project-link" href="#" target="_blank" id="proj3l">↗ VIEW ON DRIVE</a>
+    </div>
+  </div>
+  <p style="color:var(--text3);font-family:var(--font-mono);font-size:0.8rem;margin-top:1.5rem;" id="projectsNote">// More projects coming soon — replace placeholders with your real Drive links</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-label" id="lblEdu">// education</div>
+  <div class="sec-title" id="titleEdu">Education</div>
+  <div class="edu-block">
+    <div class="edu-degree" id="eduDegree">Bachelor of Science — Computer Science</div>
+    <div class="edu-school" id="eduSchool">Mustansiriyah University, Baghdad, Iraq</div>
+    <div class="edu-date" id="eduDate">Feb 2022 — May 2025</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-label" id="lblContact">// contact</div>
+  <div class="sec-title" id="titleContact">Get In Touch</div>
+  <div class="contact-grid">
+    <a class="contact-item" href="mailto:programmerhamzasami@gmail.com">
+      <div class="contact-ic">✉</div>
+      <div>
+        <div class="contact-label" id="cEmail">Email</div>
+        <div class="contact-val">programmerhamzasami@gmail.com</div>
+      </div>
+    </a>
+    <a class="contact-item" href="tel:+9647737388396">
+      <div class="contact-ic">📞</div>
+      <div>
+        <div class="contact-label" id="cPhone">Phone</div>
+        <div class="contact-val">+964 773 738 8396</div>
+      </div>
+    </a>
+    <div class="contact-item">
+      <div class="contact-ic">📍</div>
+      <div>
+        <div class="contact-label" id="cLocation">Location</div>
+        <div class="contact-val" id="cLocationVal">Wasit – Aziziyah, Iraq</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-ic">💼</div>
+      <div>
+        <div class="contact-label" id="cStatus">Status</div>
+        <div class="contact-val" id="cStatusVal" style="color:var(--neon);">● Open to opportunities</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span id="footerText">Designed &amp; built by Hamza Sami © 2025</span>
+</footer>
+
+<script>
+// ─── THEME ───
+function toggleTheme(){
+  const h=document.documentElement;
+  const isDark=h.getAttribute('data-theme')==='dark';
+  h.setAttribute('data-theme',isDark?'light':'dark');
+  document.getElementById('themeBtn').textContent=isDark?'☾':'☀';
+}
+
+// ─── LANG ───
+const translations={
+  en:{
+    heroTag:'$ initializing_portfolio.exe',
+    heroSub:'Cybersecurity Specialist & Software Developer — building secure, scalable applications and defending against evolving cyber threats.',
+    ctaProjects:'View Projects',ctaContact:'Get In Touch',
+    lblAbout:'// about_me',titleAbout:'About Me',
+    aboutP1:'Proficient in Python and C#, I build secure, scalable applications for Windows and web platforms. My expertise spans threat detection, vulnerability assessment, and implementing robust security protocols.',
+    aboutP2:'I deliver practical defenses against evolving cyber threats while ensuring system efficiency and resilience — combining the mindset of a developer with the vigilance of a security specialist.',
+    aboutP3:'Currently based in Wasit, Iraq. Open to remote opportunities and collaborations worldwide.',
+    stat1:'Years Coding',stat2:'Degree',stat3:'Languages',stat4:'Curiosity',
+    lblSkills:'// skill_set',titleSkills:'Skills',
+    sk1:'Python Development',sk1d:'Scripting, automation, security tools & backend development',
+    sk2:'C# / .NET',sk2d:'Windows application development & secure software engineering',
+    sk3:'Cybersecurity',sk3d:'Threat detection, vulnerability assessment & security protocols',
+    sk4:'Penetration Testing',sk4d:'Ethical hacking, vulnerability scanning & security auditing',
+    sk5:'Computer Literacy',sk5d:'System administration, firewalls & antivirus solutions',
+    sk6:'Interactive Media',sk6d:'Web & application UI/UX development',
+    lblProjects:'// projects',titleProjects:'Projects',
+    proj1t:'Security Monitoring Tool',proj1d:'A real-time threat detection system that monitors network traffic and flags suspicious activity using rule-based heuristics.',proj1l:'↗ VIEW ON DRIVE',
+    proj2t:'Password Manager App',proj2d:'A secure desktop application built with C# that encrypts and stores credentials locally using AES encryption.',proj2l:'↗ VIEW ON DRIVE',
+    proj3t:'Vulnerability Scanner',proj3d:'An automated pen-testing utility that scans target systems for known CVEs and generates detailed security reports.',proj3l:'↗ VIEW ON DRIVE',
+    projectsNote:'// More projects coming soon — replace placeholders with your real Drive links',
+    lblEdu:'// education',titleEdu:'Education',
+    eduDegree:'Bachelor of Science — Computer Science',eduSchool:'Mustansiriyah University, Baghdad, Iraq',eduDate:'Feb 2022 — May 2025',
+    lblContact:'// contact',titleContact:'Get In Touch',
+    cEmail:'Email',cPhone:'Phone',cLocation:'Location',cLocationVal:'Wasit – Aziziyah, Iraq',cStatus:'Status',cStatusVal:'● Open to opportunities',
+    footerText:'Designed & built by Hamza Sami © 2025',
+    navAbout:'About',navSkills:'Skills',navProjects:'Projects',navEdu:'Education',navContact:'Contact',
+    langBtn:'AR'
+  },
+  ar:{
+    heroTag:'$ تهيئة_المحفظة.exe',
+    heroSub:'متخصص في الأمن السيبراني ومطور برمجيات — أبني تطبيقات آمنة وقابلة للتطوير، وأدافع ضد التهديدات الإلكترونية المتطورة.',
+    ctaProjects:'عرض المشاريع',ctaContact:'تواصل معي',
+    lblAbout:'// عن_الشخصية',titleAbout:'عني',
+    aboutP1:'متخصص في Python و C#، أبني تطبيقات آمنة وقابلة للتطوير لمنصات Windows والويب. تشمل خبرتي الكشف عن التهديدات، وتقييم الثغرات، وتطبيق بروتوكولات أمان متينة.',
+    aboutP2:'أقدم حلول دفاعية عملية ضد التهديدات السيبرانية المتطورة مع ضمان كفاءة الأنظمة وقدرتها على الصمود.',
+    aboutP3:'أقيم حالياً في واسط، العراق. منفتح على الفرص عن بُعد والتعاون مع فرق حول العالم.',
+    stat1:'سنوات برمجة',stat2:'شهادة',stat3:'لغات',stat4:'شغف',
+    lblSkills:'// المهارات',titleSkills:'المهارات',
+    sk1:'تطوير Python',sk1d:'البرمجة النصية والأتمتة وأدوات الأمن وتطوير الخلفية',
+    sk2:'C# / .NET',sk2d:'تطوير تطبيقات Windows وهندسة البرمجيات الآمنة',
+    sk3:'الأمن السيبراني',sk3d:'الكشف عن التهديدات وتقييم الثغرات وبروتوكولات الأمان',
+    sk4:'اختبار الاختراق',sk4d:'القرصنة الأخلاقية وفحص الثغرات والتدقيق الأمني',
+    sk5:'محو الأمية الحاسوبية',sk5d:'إدارة الأنظمة وجدران الحماية وحلول مكافحة الفيروسات',
+    sk6:'الإعلام التفاعلي',sk6d:'تطوير واجهات المستخدم للويب والتطبيقات',
+    lblProjects:'// المشاريع',titleProjects:'المشاريع',
+    proj1t:'أداة مراقبة أمنية',proj1d:'نظام كشف تهديدات في الوقت الفعلي يراقب حركة الشبكة ويُنبه عند اكتشاف نشاط مشبوه.',proj1l:'↗ عرض على Drive',
+    proj2t:'تطبيق مدير كلمات المرور',proj2d:'تطبيق سطح مكتب آمن بُني بـ C# يقوم بتشفير وتخزين بيانات الاعتماد محلياً باستخدام تشفير AES.',proj2l:'↗ عرض على Drive',
+    proj3t:'ماسح الثغرات',proj3d:'أداة اختبار اختراق آلية تفحص الأنظمة المستهدفة بحثاً عن CVEs المعروفة وتُصدر تقارير أمان مفصّلة.',proj3l:'↗ عرض على Drive',
+    projectsNote:'// مزيد من المشاريع قريباً — استبدل العناصر النائبة بروابط Drive الحقيقية',
+    lblEdu:'// التعليم',titleEdu:'التعليم',
+    eduDegree:'بكالوريوس علوم — علوم الحاسوب',eduSchool:'الجامعة المستنصرية، بغداد، العراق',eduDate:'فبراير 2022 — مايو 2025',
+    lblContact:'// التواصل',titleContact:'تواصل معي',
+    cEmail:'البريد الإلكتروني',cPhone:'الهاتف',cLocation:'الموقع',cLocationVal:'واسط – العزيزية، العراق',cStatus:'الحالة',cStatusVal:'● متاح للفرص',
+    footerText:'تصميم وبرمجة حمزة سامي © 2025',
+    navAbout:'عني',navSkills:'المهارات',navProjects:'المشاريع',navEdu:'التعليم',navContact:'التواصل',
+    langBtn:'EN'
+  }
+};
+
+let currentLang='en';
+function toggleLang(){
+  currentLang=currentLang==='en'?'ar':'en';
+  applyLang(currentLang);
+}
+function applyLang(lang){
+  const t=translations[lang];
+  const html=document.documentElement;
+  const body=document.body;
+  if(lang==='ar'){html.setAttribute('dir','rtl');body.setAttribute('lang','ar');}
+  else{html.setAttribute('dir','ltr');body.setAttribute('lang','en');}
+  document.getElementById('langBtn').textContent=t.langBtn;
+  const ids=['heroTag','heroSub','ctaProjects','ctaContact',
+    'lblAbout','titleAbout','aboutP1','aboutP2','aboutP3',
+    'stat1','stat2','stat3','stat4',
+    'lblSkills','titleSkills',
+    'sk1','sk1d','sk2','sk2d','sk3','sk3d','sk4','sk4d','sk5','sk5d','sk6','sk6d',
+    'lblProjects','titleProjects',
+    'proj1t','proj1d','proj1l','proj2t','proj2d','proj2l','proj3t','proj3d','proj3l','projectsNote',
+    'lblEdu','titleEdu','eduDegree','eduSchool','eduDate',
+    'lblContact','titleContact','cEmail','cPhone','cLocation','cLocationVal','cStatus','cStatusVal',
+    'footerText'];
+  ids.forEach(id=>{const el=document.getElementById(id);if(el&&t[id])el.textContent=t[id];});
+  // Nav links
+  const navMap={about:'navAbout',skills:'navSkills',projects:'navProjects',education:'navEdu',contact:'navContact'};
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    const href=a.getAttribute('href').replace('#','');
+    if(navMap[href])a.textContent=t[navMap[href]];
+  });
+}
+
+// ─── MOBILE NAV ───
+function toggleNav(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ─── SCROLL ANIMATIONS ───
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.skill-card,.project-card,.stat-box,.edu-block,.contact-item').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+
+// Close nav on link click
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+</script>
+</body>
+</html>
